@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FrameFlow | Film Production Manager</title>
+  <style>
+    :root {
+      --bg: #101116;
+      --panel: #191b23;
+      --panel2: #222530;
+      --line: #303440;
+      --text: #f4f4f7;
+      --muted: #a2a7b5;
+      --gold: #f0b35a;
+      --green: #62d6a4;
+      --blue: #9bb8ff;
+      --red: #ff929b
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 18px
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 14px/1.5 Arial, Helvetica, sans-serif
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit
+    }
+
+    .btn,
+    button {
+      display: inline-block;
+      border: 0;
+      border-radius: 9px;
+      padding: 10px 14px;
+      background: var(--gold);
+      color: #1d170e;
+      font-weight: bold
+    }
+
+    .secondary {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      color: var(--text)
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr)
+    }
+
+    aside {
+      background: #14151b;
+      border-right: 1px solid var(--line);
+      padding: 24px 15px
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: -.7px;
+      margin: 0 10px
+    }
+
+    .brand span {
+      color: var(--gold)
+    }
+
+    .tagline {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin: 4px 10px 28px
+    }
+
+    .nav-label {
+      color: #777e8d;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin: 22px 10px 8px
+    }
+
+    nav a {
+      display: block;
+      color: #b5bac7;
+      padding: 11px 12px;
+      border-radius: 9px;
+      margin: 3px 0;
+      font-weight: bold
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background: #292720;
+      color: var(--gold)
+    }
+
+    .aside-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 35px 10px
+    }
+
+    main {
+      padding: 30px clamp(16px, 3vw, 42px);
+      max-width: 1500px;
+      width: 100%;
+      margin: auto
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 25px
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 1.7px;
+      text-transform: uppercase
+    }
+
+    h1 {
+      font-size: clamp(25px, 3vw, 35px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin: 6px 0 0
+    }
+
+    h2 {
+      font-size: 22px;
+      letter-spacing: -.5px;
+      margin: 0 0 5px
+    }
+
+    h3 {
+      font-size: 15px;
+      margin: 0
+    }
+
+    .muted,
+    .sub {
+      color: var(--muted)
+    }
+
+    .sub {
+      font-size: 12px;
+      margin-top: 4px
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .avatar {
+      display: grid;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      border-radius: 12px;
+      background: #3c3327;
+      color: var(--gold);
+      font-weight: bold
+    }
+
+    .banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      border: 1px solid #4a4030;
+      border-radius: 16px;
+      background: linear-gradient(115deg, #29251e, #1d2029 70%);
+      margin-bottom: 18px
+    }
+
+    .banner p {
+      color: var(--muted);
+      margin: 5px 0 0
+    }
+
+    .pill,
+    .status {
+      display: inline-block;
+      border-radius: 100px;
+      padding: 5px 9px;
+      font-size: 10px;
+      font-weight: bold;
+      white-space: nowrap
+    }
+
+    .pill {
+      background: #253b32;
+      color: var(--green)
+    }
+
+    .planned {
+      background: #2b303c;
+      color: #c0cbed
+    }
+
+    .scheduled {
+      background: #3b3325;
+      color: #f2c87d
+    }
+
+    .shot {
+      background: #203a31;
+      color: #78dfb1
+    }
+
+    .delayed {
+      background: #46282d;
+      color: #ff9ca3
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 13px;
+      margin-bottom: 18px
+    }
+
+    .stat,
+    .panel,
+    .day-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px
+    }
+
+    .stat {
+      padding: 17px
+    }
+
+    .stat-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .stat-icon {
+      color: var(--gold);
+      font-size: 17px
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 29px;
+      letter-spacing: -1px;
+      margin: 9px 0 1px
+    }
+
+    .stat small {
+      color: var(--muted);
+      font-size: 11px
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 15px
+    }
+
+    .panel {
+      padding: 19px;
+      margin-bottom: 16px;
+      min-width: 0
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px
+    }
+
+    .progress-item {
+      margin: 13px 0
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-bottom: 6px
+    }
+
+    .track {
+      height: 7px;
+      background: #303440;
+      border-radius: 30px;
+      overflow: hidden
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: 30px;
+      background: var(--gold)
+    }
+
+    .fill.green {
+      background: var(--green)
+    }
+
+    .fill.red {
+      background: var(--red)
+    }
+
+    .fill.blue {
+      background: var(--blue)
+    }
+
+    .scene-row {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 11px;
+      padding: 13px 0;
+      border-bottom: 1px solid #2a2d36
+    }
+
+    .scene-row:last-child {
+      border-bottom: 0
+    }
+
+    .scene-number {
+      height: 39px;
+      width: 39px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #2a2d36;
+      color: var(--gold);
+      font-weight: bold
+    }
+
+    .scene-row strong {
+      display: block;
+      font-size: 12px
+    }
+
+    .scene-row small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px
+    }
+
+    .schedule-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #2a2d36
+    }
+
+    .schedule-item:last-child {
+      border: 0
+    }
+
+    .datebox {
+      min-width: 48px;
+      text-align: center;
+      border-radius: 9px;
+      background: #292720;
+      color: var(--gold);
+      padding: 8px 4px;
+      font-weight: bold
+    }
+
+    .datebox small {
+      display: block;
+      font-size: 9px;
+      color: var(--muted)
+    }
+
+    .schedule-item strong {
+      font-size: 12px
+    }
+
+    .schedule-item p {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 3px 0 7px
+    }
+
+    .checklist label {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 0;
+      border-bottom: 1px solid #2a2d36
+    }
+
+    .checklist label:last-child {
+      border: 0
+    }
+
+    .checklist input {
+      accent-color: var(--gold)
+    }
+
+    .section {
+      padding-top: 24px;
+      margin-top: 18px;
+      scroll-margin-top: 18px
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      margin-bottom: 15px
+    }
+
+    .section-heading p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .table-wrap {
+      overflow-x: auto
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 650px
+    }
+
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 12px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    td {
+      font-size: 12px;
+      padding: 14px 12px;
+      border-bottom: 1px solid #292c35
+    }
+
+    tr:last-child td {
+      border-bottom: 0
+    }
+
+    td strong {
+      font-size: 12px
+    }
+
+    .table-panel {
+      padding: 8px 15px
+    }
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px
+    }
+
+    .day-card {
+      padding: 15px
+    }
+
+    .day-card h3 {
+      margin: 5px 0 12px
+    }
+
+    .scene-card {
+      background: var(--panel2);
+      padding: 12px;
+      border-radius: 9px;
+      margin: 8px 0
+    }
+
+    .scene-card strong {
+      display: block;
+      font-size: 12px
+    }
+
+    .scene-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin: 4px 0 8px
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .form-group label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: .7px
+    }
+
+    .field {
+      width: 100%;
+      padding: 11px 12px;
+      background: #111319;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      outline: none
+    }
+
+    .field:focus {
+      border-color: var(--gold)
+    }
+
+    .form-group.full {
+      grid-column: 1/-1
+    }
+
+    .note {
+      padding: 13px;
+      border-radius: 9px;
+      background: var(--panel2);
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 14px
+    }
+
+    .footer {
+      text-align: center;
+      padding: 26px;
+      color: var(--muted);
+      font-size: 11px
+    }
+
+    @media(max-width:950px) {
+      .app {
+        grid-template-columns: 1fr
+      }
+
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 15px
+      }
+
+      .brand {
+        display: inline-block
+      }
+
+      .tagline {
+        display: none
+      }
+
+      .nav-label,
+      .aside-note {
+        display: none
+      }
+
+      nav {
+        display: flex;
+        overflow-x: auto;
+        gap: 4px;
+        margin-top: 12px
+      }
+
+      nav a {
+        white-space: nowrap;
+        margin: 0
+      }
+
+      .columns {
+        grid-template-columns: 1fr
+      }
+
+      .schedule-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+      }
+    }
+
+    @media(max-width:600px) {
+      main {
+        padding: 20px 13px
+      }
+
+      .topbar {
+        align-items: flex-start
+      }
+
+      .profile .profile-text {
+        display: none
+      }
+
+      .banner {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px
+      }
+
+      .stat {
+        padding: 13px
+      }
+
+      .stat strong {
+        font-size: 25px
+      }
+
+      .schedule-grid,
+      .form-grid {
+        grid-template-columns: 1fr
+      }
+
+      .form-group.full {
+        grid-column: auto
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+      .panel {
+        padding: 14px
+      }
+
+      .scene-row {
+        grid-template-columns: 36px minmax(0, 1fr)
+      }
+
+      .scene-row .status {
+        grid-column: 2;
+        justify-self: start
+      }
+
+      .scene-number {
+        width: 35px;
+        height: 35px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">FRAME<span>FLOW</span></div>
+      <div class="tagline">FILM PRODUCTION WORKSPACE</div>
+      <div class="nav-label">Workspace navigation</div>
+      <nav>
+        <a href="#dashboard">▦ &nbsp; Dashboard</a><a href="#scenes">▤ &nbsp; Scenes</a><a href="#schedule">▦ &nbsp;
+          Shooting schedule</a><a href="#cast">♙ &nbsp; Cast &amp; crew</a><a href="#equipment">▣ &nbsp; Equipment</a><a
+          href="#project">⚙ &nbsp; Project details</a>
+      </nav>
+      <div class="aside-note">DEMO PROJECT · VERSION 1.0<br><br>Static HTML/CSS prototype</div>
+    </aside>
+    <main>
+      <header class="topbar" id="dashboard">
+        <div>
+          <div class="eyebrow">Production overview</div>
+          <h1>Good morning, producer.</h1>
+        </div>
+        <div class="profile">
+          <div class="profile-text"><strong>Production Team</strong><br>Workspace admin</div>
+          <div class="avatar">PT</div>
+        </div>
+      </header>
+      <section class="banner">
+        <div>
+          <div class="eyebrow">Current project</div>
+          <h2>The Last Summer</h2>
+          <p>Short film · 12 planned scenes · Independent production</p>
+        </div><span class="pill">● In production</span>
+      </section>
+      <section class="stats">
+        <article class="stat">
+          <div class="stat-label">Total scenes <span class="stat-icon">▤</span></div><strong>12</strong><small>Across
+            this project</small>
+        </article>
+        <article class="stat">
+          <div class="stat-label">Scenes shot <span class="stat-icon">✓</span></div><strong>4</strong><small>33%
+            completed</small>
+        </article>
+        <article class="stat">
+          <div class="stat-label">Upcoming shoots <span class="stat-icon">▦</span></div><strong>3</strong><small>Planned
+            shooting days</small>
+        </article>
+        <article class="stat">
+          <div class="stat-label">Equipment items <span class="stat-icon">▣</span></div><strong>8</strong><small>Tracked
+            in inventory</small>
+        </article>
+      </section>
+      <div class="columns">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h3>Scene progress</h3>
+              <div class="sub">Production status overview</div>
+            </div><a class="btn secondary" href="#scenes">View all →</a>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>Shot</span><strong>4 / 12</strong></div>
+            <div class="track">
+              <div class="fill green" style="width:33%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>Scheduled</span><strong>3 / 12</strong></div>
+            <div class="track">
+              <div class="fill" style="width:25%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>Planned</span><strong>4 / 12</strong></div>
+            <div class="track">
+              <div class="fill blue" style="width:33%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>Delayed</span><strong>1 / 12</strong></div>
+            <div class="track">
+              <div class="fill red" style="width:8%"></div>
+            </div>
+          </div>
+          <div class="scene-row">
+            <div class="scene-number">01</div>
+            <div><strong>Opening — The Station</strong><small>Old Railway Station · 27 Oct</small></div><span
+              class="status scheduled">Scheduled</span>
+          </div>
+          <div class="scene-row">
+            <div class="scene-number">02</div>
+            <div><strong>A Familiar Face</strong><small>Town Café · 27 Oct</small></div><span
+              class="status planned">Planned</span>
+          </div>
+          <div class="scene-row">
+            <div class="scene-number">04</div>
+            <div><strong>The Journey</strong><small>Highway Viewpoint · 30 Oct</small></div><span
+              class="status delayed">Delayed</span>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h3>Next shooting days</h3>
+              <div class="sub">Upcoming schedule at a glance</div>
+            </div><a class="btn secondary" href="#schedule">Schedule →</a>
+          </div>
+          <div class="schedule-item">
+            <div class="datebox">27<small>OCT</small></div>
+            <div><strong>Opening — The Station</strong>
+              <p>Old Railway Station · Maya, Arjun</p><span class="status scheduled">Scheduled</span>
+            </div>
+          </div>
+          <div class="schedule-item">
+            <div class="datebox">29<small>OCT</small></div>
+            <div><strong>The Argument</strong>
+              <p>Maya's House · Maya, Arjun</p><span class="status planned">Planned</span>
+            </div>
+          </div>
+          <div class="schedule-item">
+            <div class="datebox">30<small>OCT</small></div>
+            <div><strong>The Journey</strong>
+              <p>Highway Viewpoint · Arjun, Riya</p><span class="status delayed">Delayed</span>
+            </div>
+          </div>
+          <div class="schedule-item">
+            <div class="datebox">31<small>OCT</small></div>
+            <div><strong>Last Goodbye</strong>
+              <p>Riverside · Main cast</p><span class="status shot">Shot</span>
+            </div>
+          </div>
+        </section>
+      </div>
+      <section class="panel checklist">
+        <div class="panel-head">
+          <div>
+            <h3>Production checklist</h3>
+            <div class="sub">Example pre-shoot reminders</div>
+          </div>
+        </div>
+        <label><input type="checkbox"> Confirm actor availability <span class="muted"
+            style="margin-left:auto;font-size:11px">Cast</span></label><label><input type="checkbox"> Verify location
+          permissions <span class="muted" style="margin-left:auto;font-size:11px">Locations</span></label><label><input
+            type="checkbox"> Check camera and lighting kit <span class="muted"
+            style="margin-left:auto;font-size:11px">Equipment</span></label>
+      </section>
+
+      <section class="section" id="scenes">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Production planning</div>
+            <h2>Scenes</h2>
+            <p>Sample scene list with locations, cast, dates and statuses.</p>
+          </div><a class="btn" href="#scene-form">＋ Add scene (demo)</a>
+        </div>
+        <div class="panel table-panel">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Scene</th>
+                  <th>Location</th>
+                  <th>Cast</th>
+                  <th>Shoot date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>SC-001</strong><br>Opening — The Station</td>
+                  <td>Old Railway Station</td>
+                  <td>Maya, Arjun</td>
+                  <td>27 Oct 2026</td>
+                  <td><span class="status scheduled">Scheduled</span></td>
+                </tr>
+                <tr>
+                  <td><strong>SC-002</strong><br>A Familiar Face</td>
+                  <td>Town Café</td>
+                  <td>Maya, Riya</td>
+                  <td>27 Oct 2026</td>
+                  <td><span class="status planned">Planned</span></td>
+                </tr>
+                <tr>
+                  <td><strong>SC-003</strong><br>The Argument</td>
+                  <td>Maya's House</td>
+                  <td>Maya, Arjun</td>
+                  <td>29 Oct 2026</td>
+                  <td><span class="status planned">Planned</span></td>
+                </tr>
+                <tr>
+                  <td><strong>SC-004</strong><br>The Journey</td>
+                  <td>Highway Viewpoint</td>
+                  <td>Arjun, Riya</td>
+                  <td>30 Oct 2026</td>
+                  <td><span class="status delayed">Delayed</span></td>
+                </tr>
+                <tr>
+                  <td><strong>SC-005</strong><br>Last Goodbye</td>
+                  <td>Riverside</td>
+                  <td>Maya, Arjun, Riya</td>
+                  <td>31 Oct 2026</td>
+                  <td><span class="status shot">Shot</span></td>
+                </tr>
+                <tr>
+                  <td><strong>SC-006</strong><br>New Beginnings</td>
+                  <td>College Campus</td>
+                  <td>Maya</td>
+                  <td>02 Nov 2026</td>
+                  <td><span class="status shot">Shot</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel" id="scene-form">
+          <div class="panel-head">
+            <div>
+              <h3>Scene entry form — visual mock-up</h3>
+              <div class="sub">Example form layout for your prototype.</div>
+            </div>
+          </div>
+          <form>
+            <div class="form-grid">
+              <div class="form-group"><label for="scene-title">SCENE TITLE</label><input class="field" id="scene-title"
+                  placeholder="e.g. The Final Goodbye"></div>
+              <div class="form-group"><label for="scene-location">LOCATION</label><input class="field"
+                  id="scene-location" placeholder="e.g. Riverside"></div>
+              <div class="form-group"><label for="scene-cast">CAST / ACTORS</label><input class="field" id="scene-cast"
+                  placeholder="Names of actors"></div>
+              <div class="form-group"><label for="scene-date">SHOOTING DATE</label><input class="field" id="scene-date"
+                  type="date"></div>
+              <div class="form-group"><label for="scene-status">STATUS</label><select class="field" id="scene-status">
+                  <option>Planned</option>
+                  <option>Scheduled</option>
+                  <option>Shot</option>
+                  <option>Delayed</option>
+                </select></div>
+              <div class="form-group"><label for="scene-time">SHOOTING TIME</label><input class="field" id="scene-time"
+                  type="time"></div>
+            </div>
+            <div style="margin-top:14px"><button type="button">Preview form button</button></div>
+          </form>
+          <div class="note">This is a visual mock-up. The form fields accept typing, but without JavaScript or a
+            backend, submitting does not add a scene to the table.</div>
+        </div>
+      </section>
+
+      <section class="section" id="schedule">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Calendar</div>
+            <h2>Shooting schedule</h2>
+            <p>Scenes grouped into example shooting days.</p>
+          </div>
+        </div>
+        <div class="schedule-grid">
+          <article class="day-card">
+            <div class="eyebrow">TUESDAY</div>
+            <h3>27 October 2026</h3>
+            <div class="scene-card"><strong>Opening — The Station</strong><small>08:00 AM · Old Railway
+                Station</small><span class="status scheduled">Scheduled</span></div>
+            <div class="scene-card"><strong>A Familiar Face</strong><small>01:00 PM · Town Café</small><span
+                class="status planned">Planned</span></div>
+          </article>
+          <article class="day-card">
+            <div class="eyebrow">THURSDAY</div>
+            <h3>29 October 2026</h3>
+            <div class="scene-card"><strong>The Argument</strong><small>09:00 AM · Maya's House</small><span
+                class="status planned">Planned</span></div>
+          </article>
+          <article class="day-card">
+            <div class="eyebrow">FRIDAY</div>
+            <h3>30 October 2026</h3>
+            <div class="scene-card"><strong>The Journey</strong><small>07:00 AM · Highway Viewpoint</small><span
+                class="status delayed">Delayed</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="cast">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">People</div>
+            <h2>Cast &amp; crew</h2>
+            <p>Example cast and production-team directory.</p>
+          </div>
+        </div>
+        <div class="panel table-panel">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Scenes</th>
+                  <th>Notes</th>
+                  <th>Availability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ananya Sen</strong></td>
+                  <td>Director</td>
+                  <td>All scenes</td>
+                  <td>Production lead</td>
+                  <td><span class="status shot">Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Maya Das</strong></td>
+                  <td>Lead actor</td>
+                  <td>1, 2, 3, 5, 6</td>
+                  <td>Lead character</td>
+                  <td><span class="status shot">Available</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Arjun Roy</strong></td>
+                  <td>Actor</td>
+                  <td>1, 3, 4, 5</td>
+                  <td>Supporting lead</td>
+                  <td><span class="status scheduled">Check date</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Riya Paul</strong></td>
+                  <td>Actor</td>
+                  <td>2, 4, 5</td>
+                  <td>Supporting actor</td>
+                  <td><span class="status shot">Available</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Kabir Dey</strong></td>
+                  <td>Director of Photography</td>
+                  <td>All scenes</td>
+                  <td>Camera department</td>
+                  <td><span class="status shot">Confirmed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="equipment">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Inventory</div>
+            <h2>Equipment</h2>
+            <p>Sample equipment inventory and availability.</p>
+          </div>
+        </div>
+        <div class="panel table-panel">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Equipment</th>
+                  <th>Category</th>
+                  <th>Quantity</th>
+                  <th>Availability</th>
+                  <th>Assigned to</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Cinema Camera</strong></td>
+                  <td>Camera</td>
+                  <td>2</td>
+                  <td><span class="status shot">Available</span></td>
+                  <td>Camera team</td>
+                </tr>
+                <tr>
+                  <td><strong>Tripod</strong></td>
+                  <td>Camera support</td>
+                  <td>3</td>
+                  <td><span class="status shot">Available</span></td>
+                  <td>Camera team</td>
+                </tr>
+                <tr>
+                  <td><strong>LED Light Kit</strong></td>
+                  <td>Lighting</td>
+                  <td>4</td>
+                  <td><span class="status scheduled">Booked</span></td>
+                  <td>Lighting team</td>
+                </tr>
+                <tr>
+                  <td><strong>Boom Microphone</strong></td>
+                  <td>Sound</td>
+                  <td>2</td>
+                  <td><span class="status shot">Available</span></td>
+                  <td>Sound team</td>
+                </tr>
+                <tr>
+                  <td><strong>Wireless Mic Set</strong></td>
+                  <td>Sound</td>
+                  <td>3</td>
+                  <td><span class="status scheduled">Booked</span></td>
+                  <td>Sound team</td>
+                </tr>
+                <tr>
+                  <td><strong>Gimbal</strong></td>
+                  <td>Camera support</td>
+                  <td>1</td>
+                  <td><span class="status delayed">Maintenance</span></td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="project">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Workspace</div>
+            <h2>Project details</h2>
+            <p>Sample project metadata and next development steps.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="form-grid">
+            <div class="form-group"><label>PROJECT TITLE</label><input class="field" value="The Last Summer" readonly>
+            </div>
+            <div class="form-group"><label>PROJECT TYPE</label><input class="field" value="Short film" readonly></div>
+            <div class="form-group"><label>PRODUCTION STATUS</label><input class="field" value="In production" readonly>
+            </div>
+            <div class="form-group"><label>PRODUCTION TEAM</label><input class="field" value="Independent production"
+                readonly></div>
+            <div class="form-group full"><label>DESCRIPTION</label><textarea class="field" rows="3"
+                readonly>A coming-of-age short film about friendship and change.</textarea></div>
+          </div>
+          <div class="note"><strong>Prototype scope:</strong> This website uses HTML and CSS only. Navigation links and
+            checklist checkboxes work visually, but adding records, saving changes, searching and automatic dashboard
+            updates require JavaScript or a backend.</div>
+        </div>
+      </section>
+      <footer class="footer">FRAMEFLOW · FILM PRODUCTION MANAGEMENT · HTML + CSS ONLY</footer>
+    </main>
+  </div>
+</body>
+
+</html>
