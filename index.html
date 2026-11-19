@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FrameFlow | Film Production Manager</title>
+<style>
+:root{--bg:#101116;--panel:#191b23;--panel2:#20232d;--line:#303440;--text:#f4f4f7;--muted:#a2a7b5;--accent:#f0b35a;--green:#62d6a4;--blue:#8caeff;--red:#ff8585}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:10px 14px;background:var(--accent);color:#19140c;font-weight:700}button.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}button.danger{background:#4b262b;color:#ffb6b6}.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}.sidebar{border-right:1px solid var(--line);padding:24px 16px;background:#14151b}.brand{font-size:20px;font-weight:850;letter-spacing:-.6px;margin:2px 10px 4px}.brand span{color:var(--accent)}.tagline{color:var(--muted);font-size:11px;margin:0 10px 30px}.nav-label{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;color:#777e8d;margin:20px 10px 8px}.nav button{display:flex;width:100%;gap:12px;align-items:center;background:transparent;color:#aeb3c0;text-align:left;margin:3px 0;padding:11px 12px;font-weight:600}.nav button.active,.nav button:hover{background:#292720;color:var(--accent)}.sidebar-foot{position:sticky;top:calc(100vh - 80px);margin:40px 8px 0;color:var(--muted);font-size:11px}.main{padding:28px clamp(16px,3vw,42px);max-width:1500px;width:100%;margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}.eyebrow{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}.topbar h1{font-size:clamp(24px,3vw,34px);margin:4px 0 0;letter-spacing:-1px}.user{display:flex;align-items:center;gap:10px;color:var(--muted)}.avatar{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#3c3327;color:var(--accent);font-weight:800}.view{display:none}.view.active{display:block}.project-banner{background:linear-gradient(115deg,#29251e,#1d2029 65%);border:1px solid #4a4030;border-radius:16px;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px}.project-banner h2{font-size:21px;margin:5px 0}.project-banner p{color:var(--muted);margin:0}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:100px;padding:5px 9px;font-size:11px;font-weight:800;background:#253b32;color:var(--green)}.pill:before{content:"";width:6px;height:6px;background:currentColor;border-radius:50%}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:22px}.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px}.stat{padding:18px}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-icon{color:var(--accent);font-size:17px}.stat strong{display:block;font-size:29px;letter-spacing:-1px;margin:8px 0 0}.stat small{color:var(--muted)}.columns{display:grid;grid-template-columns:1.35fr 1fr;gap:16px}.panel{padding:20px;margin-bottom:16px;min-width:0}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.panel h3{font-size:15px;margin:0}.sub{color:var(--muted);font-size:12px;margin-top:3px}.progress-line{height:7px;background:#303440;border-radius:20px;overflow:hidden;margin:12px 0}.progress-line span{height:100%;display:block;background:var(--accent);border-radius:20px}.scene-row{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #2a2d36}.scene-row:last-child{border:0}.scene-num{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:#2a2d36;color:var(--accent);font-weight:800}.scene-row strong{display:block;font-size:13px}.scene-row small{color:var(--muted)}.status{border-radius:7px;padding:5px 8px;font-size:10px;font-weight:800;white-space:nowrap}.status.Planned{background:#2b303c;color:#b8c6e7}.status.Scheduled{background:#3b3325;color:#f2c87d}.status.Shot{background:#203a31;color:#78dfb1}.status.Delayed{background:#46282d;color:#ff9ca3}.schedule-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #2a2d36}.schedule-item:last-child{border:0}.datebox{min-width:49px;text-align:center;border-radius:9px;background:#292720;padding:8px 4px;color:var(--accent);font-weight:800}.datebox small{display:block;font-size:9px;color:var(--muted)}.schedule-item strong{font-size:12px}.schedule-item p{margin:3px 0;color:var(--muted);font-size:11px}.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:16px}.toolbar-left{display:flex;gap:10px;flex-wrap:wrap}.field{background:#111319;border:1px solid var(--line);border-radius:9px;color:var(--text);padding:10px 12px;outline:none;min-width:150px}.field:focus{border-color:var(--accent)}.search{min-width:220px}.table-wrap{overflow-x:auto}.data-table{width:100%;border-collapse:collapse;min-width:650px}.data-table th{text-align:left;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:800;padding:12px;border-bottom:1px solid var(--line)}.data-table td{padding:14px 12px;border-bottom:1px solid #292c35;font-size:12px}.data-table tr:last-child td{border:0}.data-table td strong{font-size:12px}.muted{color:var(--muted)}.actions{display:flex;gap:6px}.actions button{padding:6px 8px;font-size:11px}.schedule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.day-card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:16px}.day-card h3{margin:0 0 12px;font-size:13px}.day-card .scene-card{padding:12px;background:var(--panel2);border-radius:9px;margin:8px 0}.scene-card strong{font-size:12px;display:block}.scene-card small{color:var(--muted)}.empty{padding:32px;text-align:center;color:var(--muted)}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.form-group{display:flex;flex-direction:column;gap:6px}.form-group label{font-size:11px;color:var(--muted);font-weight:700}.form-group .field{width:100%}.form-group.full{grid-column:1/-1}.form-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.toast{position:fixed;right:22px;bottom:22px;background:#e9f8ef;color:#163a28;padding:12px 16px;border-radius:10px;box-shadow:0 10px 35px #0005;display:none;z-index:10;font-weight:700}.footer-note{font-size:11px;color:var(--muted);text-align:center;padding:18px}.mobile-menu{display:none}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;border-right:0;border-bottom:1px solid var(--line);padding:14px}.brand{display:inline-block;margin-bottom:0}.tagline{display:none}.nav{display:flex;overflow:auto;gap:4px;margin-top:12px}.nav-label,.sidebar-foot{display:none}.nav button{white-space:nowrap;width:auto;margin:0}.columns{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.schedule-grid{grid-template-columns:1fr 1fr}.main{padding-top:20px}}
+@media(max-width:560px){.topbar{align-items:flex-start}.user .user-text{display:none}.project-banner{align-items:flex-start;flex-direction:column}.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:24px}.schedule-grid,.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.toolbar{align-items:stretch}.toolbar-left{width:100%}.search{min-width:0;width:100%}.field{min-width:0}.panel{padding:14px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">FRAME<span>FLOW</span></div><div class="tagline">FILM PRODUCTION WORKSPACE</div>
+  <div class="nav-label">Workspace</div>
+  <nav class="nav">
+    <button class="active" data-view="dashboard">▦ &nbsp; Dashboard</button>
+    <button data-view="scenes">▤ &nbsp; Scenes</button>
+    <button data-view="schedule">▦ &nbsp; Shooting schedule</button>
+    <button data-view="cast">♙ &nbsp; Cast & crew</button>
+    <button data-view="equipment">▣ &nbsp; Equipment</button>
+  </nav>
+  <div class="nav-label">Project</div>
+  <nav class="nav"><button data-view="project">⚙ &nbsp; Project details</button></nav>
+  <div class="sidebar-foot">DEMO PROJECT · V 1.0<br>Prototype data is stored in this browser.</div>
+</aside>
+<main class="main">
+  <header class="topbar">
+    <div><div class="eyebrow" id="pageEyebrow">Production overview</div><h1 id="pageTitle">Good evening, producer.</h1></div>
+    <div class="user"><div class="user-text"><strong>Production Team</strong><div class="muted" style="font-size:11px;text-align:right">Workspace admin</div></div><div class="avatar">PT</div></div>
+  </header>
+
+  <section class="view active" id="dashboard">
+    <div class="project-banner">
+      <div><div class="eyebrow">CURRENT PROJECT</div><h2 id="bannerTitle">The Last Summer</h2><p id="bannerMeta">Short film · 12 scenes · Independent production</p></div>
+      <span class="pill">In production</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-top">Total scenes <span class="stat-icon">▤</span></div><strong id="totalScenes">12</strong><small>Across this project</small></div>
+      <div class="stat"><div class="stat-top">Scenes shot <span class="stat-icon">✓</span></div><strong id="shotScenes">4</strong><small id="shotCaption">33% completed</small></div>
+      <div class="stat"><div class="stat-top">Upcoming shoots <span class="stat-icon">▦</span></div><strong id="upcomingCount">3</strong><small>Planned shooting days</small></div>
+      <div class="stat"><div class="stat-top">Equipment items <span class="stat-icon">▣</span></div><strong id="equipmentCount">8</strong><small>Tracked in inventory</small></div>
+    </div>
+    <div class="columns">
+      <div class="panel"><div class="panel-head"><div><h3>Scene progress</h3><div class="sub">Track the production status of each scene</div></div><button class="secondary" onclick="showView('scenes')">View all →</button></div><div id="progressSummary"></div><div id="recentScenes"></div></div>
+      <div class="panel"><div class="panel-head"><div><h3>Next shooting days</h3><div class="sub">Your upcoming schedule at a glance</div></div><button class="secondary" onclick="showView('schedule')">Schedule →</button></div><div id="nextShoots"></div></div>
+    </div>
+    <div class="panel"><div class="panel-head"><div><h3>Production checklist</h3><div class="sub">Quick checks before the crew arrives</div></div></div>
+      <div id="checklist">
+      <label style="display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #2a2d36"><input type="checkbox"> Confirm actor availability <span class="muted" style="margin-left:auto;font-size:11px">Cast</span></label>
+      <label style="display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #2a2d36"><input type="checkbox"> Verify location permissions <span class="muted" style="margin-left:auto;font-size:11px">Locations</span></label>
+      <label style="display:flex;gap:10px;align-items:center;padding:9px 0"><input type="checkbox"> Check camera and lighting kit <span class="muted" style="margin-left:auto;font-size:11px">Equipment</span></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="scenes">
+    <div class="toolbar"><div><h2 style="margin:0">Scenes</h2><div class="sub">Manage scenes and production status</div></div><button onclick="openSceneForm()">＋ Add scene</button></div>
+    <div class="toolbar"><div class="toolbar-left"><input id="sceneSearch" class="field search" placeholder="Search scenes..." oninput="renderScenes()"><select id="statusFilter" class="field" onchange="renderScenes()"><option value="">All statuses</option><option>Planned</option><option>Scheduled</option><option>Shot</option><option>Delayed</option></select></div></div>
+    <div class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Scene</th><th>Location</th><th>Cast</th><th>Shoot date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="sceneTable"></tbody></table></div></div>
+  </section>
+
+  <section class="view" id="schedule">
+    <div class="toolbar"><div><h2 style="margin:0">Shooting schedule</h2><div class="sub">Plan scenes by shooting date and location</div></div><button onclick="openSceneForm()">＋ Schedule scene</button></div>
+    <div class="schedule-grid" id="scheduleGrid"></div>
+  </section>
+
+  <section class="view" id="cast">
+    <div class="toolbar"><div><h2 style="margin:0">Cast & crew</h2><div class="sub">People involved in the production</div></div><button onclick="openPersonForm()">＋ Add person</button></div>
+    <div class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Name</th><th>Role</th><th>Scenes</th><th>Contact / notes</th><th>Actions</th></tr></thead><tbody id="castTable"></tbody></table></div></div>
+  </section>
+
+  <section class="view" id="equipment">
+    <div class="toolbar"><div><h2 style="margin:0">Equipment inventory</h2><div class="sub">Track gear and availability for shoot days</div></div><button onclick="openEquipmentForm()">＋ Add equipment</button></div>
+    <div class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Equipment</th><th>Category</th><th>Quantity</th><th>Availability</th><th>Actions</th></tr></thead><tbody id="equipmentTable"></tbody></table></div></div>
+  </section>
+
+  <section class="view" id="project">
+    <div class="toolbar"><div><h2 style="margin:0">Project details</h2><div class="sub">Edit the basic information for your film</div></div></div>
+    <div class="panel"><form id="projectForm"><div class="form-grid">
+      <div class="form-group"><label>PROJECT TITLE</label><input id="projectName" class="field" required value="The Last Summer"></div>
+      <div class="form-group"><label>PROJECT TYPE</label><select id="projectType" class="field"><option>Short film</option><option>Feature film</option><option>Documentary</option><option>Student film</option><option>Advertisement</option></select></div>
+      <div class="form-group"><label>PRODUCTION STATUS</label><select id="projectStatus" class="field"><option>In production</option><option>Pre-production</option><option>Post-production</option><option>Completed</option></select></div>
+      <div class="form-group"><label>PRODUCTION COMPANY / TEAM</label><input id="projectTeam" class="field" value="Independent production"></div>
+      <div class="form-group full"><label>PROJECT DESCRIPTION</label><textarea id="projectDescription" class="field" rows="3">A coming-of-age short film about friendship and change.</textarea></div>
+    </div><div class="form-actions"><button type="submit">Save project details</button></div></form></div>
+    <div class="panel"><h3>Prototype limitations</h3><p class="muted">This version stores data in the current browser using localStorage. It is suitable for a classroom demo, but does not yet include user accounts, cloud syncing, automatic conflict detection, or multi-user permissions.</p><button class="secondary" onclick="exportData()">Export project data (JSON)</button> <button class="secondary" onclick="resetDemo()">Reset sample data</button></div>
+  </section>
+  <div class="footer-note">FRAMEFLOW · Student prototype · Built with HTML, CSS & JavaScript</div>
+</main>
+</div>
+
+<div id="modal" style="display:none;position:fixed;inset:0;background:#000a;z-index:20;padding:20px;overflow:auto;align-items:center;justify-content:center">
+ <div class="panel" style="width:min(560px,100%);margin:auto;background:#191b23">
+  <div class="panel-head"><h3 id="modalTitle">Add item</h3><button class="secondary" onclick="closeModal()">✕</button></div>
+  <form id="modalForm"><div id="modalFields" class="form-grid"></div><div class="form-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button type="submit">Save</button></div></form>
+ </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const initialData = {
+ project:{name:"The Last Summer",type:"Short film",status:"In production",team:"Independent production",description:"A coming-of-age short film about friendship and change."},
+ scenes:[
+ {id:1,title:"Opening — The Station",location:"Old Railway Station",cast:"Maya, Arjun",date:"2026-10-27",status:"Scheduled"},
+ {id:2,title:"A Familiar Face",location:"Town Café",cast:"Maya, Riya",date:"2026-10-27",status:"Planned"},
+ {id:3,title:"The Argument",location:"Maya's House",cast:"Maya, Arjun",date:"2026-10-29",status:"Planned"},
+ {id:4,title:"The Journey",location:"Highway Viewpoint",cast:"Arjun, Riya",date:"2026-10-30",status:"Delayed"},
+ {id:5,title:"Last Goodbye",location:"Riverside",cast:"Maya, Arjun, Riya",date:"2026-10-31",status:"Shot"},
+ {id:6,title:"New Beginnings",location:"College Campus",cast:"Maya",date:"2026-11-02",status:"Shot"},
+ {id:7,title:"The Letter",location:"Maya's House",cast:"Maya",date:"2026-11-03",status:"Shot"},
+ {id:8,title:"Flashback",location:"Town Café",cast:"Maya, Riya",date:"2026-11-04",status:"Shot"}
+ ],
+ people:[
+ {id:1,name:"Ananya Sen",role:"Director",scenes:"All scenes",notes:"ananya@example.com"},
+ {id:2,name:"Maya Das",role:"Lead actor",scenes:"1, 2, 3, 5, 6, 7, 8",notes:"Lead character"},
+ {id:3,name:"Arjun Roy",role:"Actor",scenes:"1, 3, 4, 5",notes:"Supporting lead"},
+ {id:4,name:"Riya Paul",role:"Actor",scenes:"2, 4, 5, 8",notes:"Supporting actor"},
+ {id:5,name:"Kabir Dey",role:"Director of Photography",scenes:"All scenes",notes:"Camera department"}
+ ],
+ equipment:[
+ {id:1,name:"Cinema Camera",category:"Camera",qty:2,availability:"Available"},
+ {id:2,name:"Tripod",category:"Camera support",qty:3,availability:"Available"},
+ {id:3,name:"LED Light Kit",category:"Lighting",qty:4,availability:"Booked"},
+ {id:4,name:"Boom Microphone",category:"Sound",qty:2,availability:"Available"},
+ {id:5,name:"Wireless Mic Set",category:"Sound",qty:3,availability:"Booked"},
+ {id:6,name:"Reflector",category:"Lighting",qty:2,availability:"Available"},
+ {id:7,name:"Gimbal",category:"Camera support",qty:1,availability:"Maintenance"},
+ {id:8,name:"Memory Cards",category:"Storage",qty:6,availability:"Available"}
+ ]
+};
+let data;
+try { data=JSON.parse(localStorage.getItem("frameflowData")) || structuredClone(initialData); } catch(e) { data=structuredClone(initialData); }
+let nextId=()=>Date.now()+Math.floor(Math.random()*1000);
+function save(){localStorage.setItem("frameflowData",JSON.stringify(data));renderAll()}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function fmtDate(d){if(!d)return "Not set";const x=new Date(d+"T12:00:00");return x.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})}
+function statusTag(s){return `<span class="status ${esc(s)}">${esc(s)}</span>`}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",2400)}
+const titles={dashboard:["Production overview","Good evening, producer."],scenes:["Scene management","Scenes"],schedule:["Production calendar","Shooting schedule"],cast:["People & roles","Cast & crew"],equipment:["Gear tracking","Equipment"],project:["Workspace settings","Project details"]};
+function showView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===id));document.getElementById("pageEyebrow").textContent=titles[id][0];document.getElementById("pageTitle").textContent=titles[id][1];if(id==="scenes")renderScenes();if(id==="schedule")renderSchedule();if(id==="cast")renderPeople();if(id==="equipment")renderEquipment();if(id==="dashboard")renderDashboard();window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+function renderDashboard(){
+ const total=data.scenes.length,shot=data.scenes.filter(s=>s.status==="Shot").length,scheduled=data.scenes.filter(s=>s.status==="Scheduled").length;
+ document.getElementById("bannerTitle").textContent=data.project.name;document.getElementById("bannerMeta").textContent=`${data.project.type} · ${total} scenes · ${data.project.team}`;
+ document.getElementById("totalScenes").textContent=total;document.getElementById("shotScenes").textContent=shot;document.getElementById("shotCaption").textContent=`${total?Math.round(shot/total*100):0}% completed`;document.getElementById("upcomingCount").textContent=data.scenes.filter(s=>s.date&&s.status!=="Shot").length;document.getElementById("equipmentCount").textContent=data.equipment.length;
+ const counts=["Planned","Scheduled","Shot","Delayed"].map(st=>({st,n:data.scenes.filter(s=>s.status===st).length}));
+ document.getElementById("progressSummary").innerHTML=counts.map(c=>`<div style="display:flex;justify-content:space-between;font-size:11px"><span>${c.st}</span><strong>${c.n}</strong></div><div class="progress-line"><span style="width:${total?c.n/total*100:0}%;background:${c.st==="Shot"?"var(--green)":c.st==="Delayed"?"var(--red)":c.st==="Scheduled"?"var(--accent)":"var(--blue)"}"></span></div>`).join("");
+ document.getElementById("recentScenes").innerHTML=data.scenes.slice(0,3).map(s=>`<div class="scene-row"><div class="scene-num">${String(s.id).slice(-2)}</div><div><strong>${esc(s.title)}</strong><small>${esc(s.location)} · ${fmtDate(s.date)}</small></div>${statusTag(s.status)}</div>`).join("")||'<div class="empty">No scenes yet. Add your first scene.</div>';
+ const upcoming=data.scenes.filter(s=>s.date&&s.status!=="Shot").sort((a,b)=>a.date.localeCompare(b.date)).slice(0,4);
+ document.getElementById("nextShoots").innerHTML=upcoming.map(s=>`<div class="schedule-item"><div class="datebox">${new Date(s.date+"T12:00:00").getDate()}<small>${new Date(s.date+"T12:00:00").toLocaleDateString("en-IN",{month:"short"}).toUpperCase()}</small></div><div><strong>${esc(s.title)}</strong><p>${esc(s.location)} · ${esc(s.cast)}</p>${statusTag(s.status)}</div></div>`).join("")||'<div class="empty">No upcoming scenes scheduled.</div>';
+}
+function renderScenes(){
+ const q=(document.getElementById("sceneSearch")?.value||"").toLowerCase(),st=document.getElementById("statusFilter")?.value||"";
+ const rows=data.scenes.filter(s=>(`${s.title} ${s.location} ${s.cast}`.toLowerCase().includes(q))&&(!st||s.status===st)).sort((a,b)=>a.id-b.id);
+ document.getElementById("sceneTable").innerHTML=rows.map(s=>`<tr><td><strong>SC-${String(s.id).slice(-3)}</strong><br>${esc(s.title)}</td><td>${esc(s.location)}</td><td>${esc(s.cast)}</td><td>${fmtDate(s.date)}</td><td><select class="field" style="padding:6px;font-size:11px;min-width:105px" onchange="changeStatus(${s.id},this.value)">${["Planned","Scheduled","Shot","Delayed"].map(x=>`<option ${s.status===x?"selected":""}>${x}</option>`).join("")}</select></td><td><div class="actions"><button class="secondary" onclick="editScene(${s.id})">Edit</button><button class="danger" onclick="deleteItem('scenes',${s.id})">Delete</button></div></td></tr>`).join("")||'<tr><td colspan="6" class="empty">No scenes match your search.</td></tr>';
+}
+function changeStatus(id,status){const s=data.scenes.find(x=>x.id===id);if(s){s.status=status;save();showToast("Scene status updated")}}
+function renderSchedule(){
+ const grouped={};data.scenes.filter(s=>s.date).sort((a,b)=>a.date.localeCompare(b.date)).forEach(s=>(grouped[s.date]??=[]).push(s));
+ const dates=Object.keys(grouped);
+ document.getElementById("scheduleGrid").innerHTML=dates.map(d=>`<div class="day-card"><div class="eyebrow">${new Date(d+"T12:00:00").toLocaleDateString("en-IN",{weekday:"short"}).toUpperCase()}</div><h3>${fmtDate(d)}</h3>${grouped[d].map(s=>`<div class="scene-card"><strong>${esc(s.title)}</strong><small>${esc(s.location)} · ${esc(s.cast)}</small><div style="margin-top:8px">${statusTag(s.status)}</div></div>`).join("")}</div>`).join("")||'<div class="panel empty">No dates assigned. Add a scene with a shooting date.</div>';
+}
+function renderPeople(){document.getElementById("castTable").innerHTML=data.people.map(p=>`<tr><td><strong>${esc(p.name)}</strong></td><td>${esc(p.role)}</td><td>${esc(p.scenes)}</td><td>${esc(p.notes)}</td><td><div class="actions"><button class="danger" onclick="deleteItem('people',${p.id})">Remove</button></div></td></tr>`).join("")||'<tr><td colspan="5" class="empty">No people added.</td></tr>'}
+function renderEquipment(){document.getElementById("equipmentTable").innerHTML=data.equipment.map(e=>`<tr><td><strong>${esc(e.name)}</strong></td><td>${esc(e.category)}</td><td>${e.qty}</td><td><select class="field" style="padding:6px;font-size:11px" onchange="changeEquipment(${e.id},this.value)">${["Available","Booked","Maintenance"].map(x=>`<option ${e.availability===x?"selected":""}>${x}</option>`).join("")}</select></td><td><div class="actions"><button class="danger" onclick="deleteItem('equipment',${e.id})">Remove</button></div></td></tr>`).join("")||'<tr><td colspan="5" class="empty">No equipment added.</td></tr>'}
+function changeEquipment(id,value){const e=data.equipment.find(x=>x.id===id);if(e){e.availability=value;save();showToast("Equipment availability updated")}}
+function renderAll(){renderDashboard();renderScenes();renderSchedule();renderPeople();renderEquipment();document.getElementById("projectName").value=data.project.name;document.getElementById("projectType").value=data.project.type;document.getElementById("projectStatus").value=data.project.status;document.getElementById("projectTeam").value=data.project.team;document.getElementById("projectDescription").value=data.project.description}
+function deleteItem(key,id){if(confirm("Remove this item from the prototype?")){data[key]=data[key].filter(x=>x.id!==id);save();showToast("Item removed")}}
+function closeModal(){document.getElementById("modal").style.display="none"}
+function field(name,label,type="text",value="",required=true,full=false,options=[]){let control=type==="select"?`<select class="field" id="f_${name}" ${required?"required":""}>${options.map(o=>`<option ${o===value?"selected":""}>${esc(o)}</option>`).join("")}</select>`:type==="textarea"?`<textarea class="field" id="f_${name}" rows="2">${esc(value)}</textarea>`:`<input class="field" id="f_${name}" type="${type}" value="${esc(value)}" ${required?"required":""}>`;return `<div class="form-group ${full?"full":""}"><label>${label.toUpperCase()}</label>${control}</div>`}
+function openModal(title,fields,onSave){document.getElementById("modalTitle").textContent=title;document.getElementById("modalFields").innerHTML=fields;document.getElementById("modal").style.display="flex";document.getElementById("modalForm").onsubmit=e=>{e.preventDefault();onSave();closeModal();save();showToast("Saved successfully")}}
+function openSceneForm(){openModal("Add a scene",field("title","Scene title")+field("location","Location")+field("cast","Cast / actors")+field("date","Shooting date","date",new Date().toISOString().slice(0,10))+field("status","Status","select","Planned",true,false,["Planned","Scheduled","Shot","Delayed"]),()=>data.scenes.push({id:nextId(),title:document.getElementById("f_title").value,location:document.getElementById("f_location").value,cast:document.getElementById("f_cast").value,date:document.getElementById("f_date").value,status:document.getElementById("f_status").value}))}
+function editScene(id){const s=data.scenes.find(x=>x.id===id);if(!s)return;openModal("Edit scene",field("title","Scene title","text",s.title)+field("location","Location","text",s.location)+field("cast","Cast / actors","text",s.cast)+field("date","Shooting date","date",s.date)+field("status","Status","select",s.status,true,false,["Planned","Scheduled","Shot","Delayed"]),()=>Object.assign(s,{title:document.getElementById("f_title").value,location:document.getElementById("f_location").value,cast:document.getElementById("f_cast").value,date:document.getElementById("f_date").value,status:document.getElementById("f_status").value}))}
+function openPersonForm(){openModal("Add cast or crew",field("name","Name")+field("role","Role")+field("scenes","Scenes involved","text","To be assigned")+field("notes","Contact / notes","text","",false,true),()=>data.people.push({id:nextId(),name:document.getElementById("f_name").value,role:document.getElementById("f_role").value,scenes:document.getElementById("f_scenes").value,notes:document.getElementById("f_notes").value}))}
+function openEquipmentForm(){openModal("Add equipment",field("name","Equipment name")+field("category","Category")+field("qty","Quantity","number","1")+field("availability","Availability","select","Available",true,false,["Available","Booked","Maintenance"]),()=>data.equipment.push({id:nextId(),name:document.getElementById("f_name").value,category:document.getElementById("f_category").value,qty:Math.max(1,Number(document.getElementById("f_qty").value)),availability:document.getElementById("f_availability").value}))}
+document.getElementById("projectForm").addEventListener("submit",e=>{e.preventDefault();data.project={name:document.getElementById("projectName").value,type:document.getElementById("projectType").value,status:document.getElementById("projectStatus").value,team:document.getElementById("projectTeam").value,description:document.getElementById("projectDescription").value};save();showToast("Project details saved")});
+function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="frameflow-project.json";a.click();URL.revokeObjectURL(a.href);showToast("Project data exported")}
+function resetDemo(){if(confirm("Reset all data to the original demo project?")){data=structuredClone(initialData);save();showToast("Demo data reset")}}
+renderAll();
+</script>
+</body>
+</html>
